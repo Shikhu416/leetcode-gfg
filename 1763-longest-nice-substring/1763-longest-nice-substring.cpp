@@ -1,55 +1,52 @@
 class Solution {
 public:
-    bool check(string s)
-    {
-        map<char,int>mp;
-        for(auto elem:s)
+    string res="";
+    int len=INT_MIN;
+    string longestNiceSubstring(string shikhar) {  
+        if(shikhar.length()==0)
+            return "";
+        unordered_set<char>s;
+        for(auto elem:shikhar)
         {
-            mp[elem]++;
-        }
-        for(int i=0;i<s.length();i++)
+            s.insert(elem);
+        }     
+        bool flag=true;
+        int p;
+        for(int i=0;i<shikhar.length();i++)
         {
-            if(isupper(s[i]))
+            if(isupper(shikhar[i]))
             {
-                if(mp[tolower(s[i])])
-                    continue;
-                else
-                    return false;
-            }
-            else if(islower(s[i]))
-            {
-                if(mp[toupper(s[i])])
-                    continue;
-                else
-                    return false;
-            }
-        }
-        return true;
-    }
-    string longestNiceSubstring(string s) {
-        int len=INT_MIN;
-        string res="";
-        int n=s.length();
-        for(int i=0;i<n;i++)
-        {
-            for(int j=i+1;j<n;j++)
-            {
-                string shikhar=s.substr(i,j-i+1);
-                //cout<<shikhar<<endl;
-                if(check(shikhar))
-                {
-                   // cout<<"YES"<<endl;
-                    if((j-i+1)>len)
-                    {
-                        res=shikhar;
-                        len=j-i+1;
-                    }
+                if(s.find(tolower(shikhar[i]))!=s.end())
+                {}
+                else{p=i;
+                    flag=false;
+                     break;
                 }
-                //else
-                   // cout<<"NO"<<endl;
+                
             }
+            else if(islower(shikhar[i]))
+            {
+                if(s.find(toupper(shikhar[i]))!=s.end())
+                {}
+                else{p=i;
+                    flag=false;
+                     break;
+                    }
+                
+            }
+            
         }
-        return res;
+        if(!flag)
+        {
+            string s1= longestNiceSubstring(shikhar.substr(0,p));
+            string s2= longestNiceSubstring(shikhar.substr(p+1,shikhar.length()-p));
+            if(s1.length()>=s2.length())
+                return s1;
+            else
+                return s2;
+            
+        }
+        return shikhar;
         
         
         
