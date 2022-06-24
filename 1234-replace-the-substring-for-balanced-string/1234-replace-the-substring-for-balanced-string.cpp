@@ -49,21 +49,14 @@ public:
             {
                 while(comp['Q']>=mp['Q']&&comp['W']>=mp['W']&&comp['E']>=mp['E']&&comp['R']>=mp['R']&&start<n)
                 {
-                    if(mp[s[start]]>0){
-                    if(comp[s[start]]>mp[s[start]])
+                    if(end-start+1<len)
+                        len=end-start+1;
+                    if(mp[s[start]]>0)
                     {
                         comp[s[start]]--;
-                    }
-                    else
-                    {
-                        len=min(len,end-start+1);
-                        if(mp[s[start]]>0)
-                        comp[s[start]]--;
-                        start++;
-                        break;
-                    }
                     }
                     start++;
+                    
                 }
             }
             end++;
