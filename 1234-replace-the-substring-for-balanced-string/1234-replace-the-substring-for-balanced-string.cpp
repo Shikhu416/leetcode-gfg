@@ -47,7 +47,7 @@ public:
                 comp[s[end]]++;
             if(comp['Q']>=mp['Q']&&comp['W']>=mp['W']&&comp['E']>=mp['E']&&comp['R']>=mp['R'])
             {
-                while(comp['Q']>=mp['Q']&&comp['W']>=mp['W']&&comp['E']>=mp['E']&&comp['R']>=mp['R']&&start<=end)
+                while(comp['Q']>=mp['Q']&&comp['W']>=mp['W']&&comp['E']>=mp['E']&&comp['R']>=mp['R']&&start<n)
                 {
                     if(mp[s[start]]>0){
                     if(comp[s[start]]>mp[s[start]])
