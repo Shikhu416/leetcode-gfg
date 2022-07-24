@@ -5,11 +5,10 @@ public:
   void solve(vector<int>&v,int i,vector<int>&shikhar)
   {
       if(i==v.size()){
-          vector<int>temp=shikhar;
-          sort(temp.begin(),temp.end());
-          if(mp[temp]==0){
-          shiv.push_back(temp);
-              mp[temp]=1;
+         
+          if(mp[shikhar]==0){
+          shiv.push_back(shikhar);
+              mp[shikhar]=1;
       }
          
           return;
@@ -22,6 +21,7 @@ public:
   }
     
     vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        sort(nums.begin(),nums.end());
         vector<int>shikhar;
         solve(nums,0,shikhar);
         return shiv;
