@@ -1,23 +1,15 @@
 class Solution {
 public:
-    int uniquePaths(int m, int n) {
-    double res=1;
-        int r=m+n-2;
-        for(int i=0;i<n-1;i++)
-        {//cout<<res<<" "<<r-i<<" "<<n-1-i<<endl;
-            res=res*(r-i)/(n-1-i);
-         //cout<<res<<" "<<r-i<<" "<<n-1-i<<endl;
-        }
-      // long long int res2=1;
-      //  for(int i=0;i<n-1;i++)
-      //  {
-      //      res2*=n-1-i;
-      //  }
-        cout<<res<<endl;
-        if(res> int(res)+0.5){
-            return ceil(res);
-        }
-       return int(res);
+    int solve(int i,int j,int m,int n,vector<vector<int>>&dp)
+    {
+        if(i==m-1||(j==n-1))
+            return 1;
+        if(dp[i][j]!=-1)
+            return dp[i][j];
+        return dp[i][j]=solve(i+1,j,m,n,dp)+solve(i,j+1,m,n,dp);
     }
-    
+    int uniquePaths(int m, int n) {
+        vector<vector<int>>dp(m,vector<int>(n,-1));
+   return solve(0,0,m,n,dp);
+    }
 };
