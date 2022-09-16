@@ -3,77 +3,33 @@ public:
     
     
     string minWindow(string s, string t) {
-        int n1=t.length();
-        int n2=s.length();
+       int target=t.length();
+        int left=0,right=0,n=s.length(),ans=INT_MAX;string shik="";
         map<char,int>mp;
-        map<char,int>mps;
-        int j=0;
-        for(int i=0;i<n1;i++)
+        for(int i=0;i<target;i++)
         {
             mp[t[i]]++;
         }
-        int shikhar=0;
-        string res="";
-        int p=INT_MAX;
-        string comp="";
-        for(int i=0;i<n2;i++)
-        {int k=s[i];
-         mps[k]++;
-            if(mp[k]>0&&(mps[k]<=mp[k]))
+        while(right<n)
+        {
+           mp[s[right]]--;
+            if(mp[s[right]]>=0)
+                target--;
+            while(target==0)
+            {if(right-left+1<ans)
             {
-                shikhar++;
+                ans=right-left+1;
+                shik=s.substr(left,right-left+1);
             }
-                if(shikhar==n1)
-                {   
-                    res=s.substr(j,i-j+1);
-                    
-                    if(p>=i-j+1)
-                    {
-                        p=min(p,i-j+1);
-                        comp=res;
-                        cout<<comp<<endl;
-                    }
-                    while(shikhar==n1&&j<i)
-                    {int l=s[j];
-                        if(mp[l]>0)
-                        {
-                            if(mps[l]>mp[l])
-                            {
-                                mps[l]--;
-                                j++;
-                                 res=s.substr(j,i-j+1);
-                                 if(p>=i-j+1)
-                                        {
-                                            p=min(p,i-j+1);
-                                            comp=res;
-                                                          cout<<comp<<endl;
-                                        }
-                            }
-                            else
-                            {
-                                mps[l]--;
-                                shikhar--;
-                                j++;
-                            }
-                        }
-                     else{
-                          j++;
-                          res=s.substr(j,i-j+1);
-                          if(p>i-j+1)
-                    {
-                        p=min(p,i-j+1);
-                        comp=res;
-                               cout<<comp<<endl;
-                    }
-                         
-                     }
-                    }
-                }
+                mp[s[left]]++;
+                if(mp[s[left]]>0)
+                    target++;
+                left++;
+            }
             
-        // mps[k]++;
+            right++;
         }
-        return comp;
-        
+        return shik;
         
     }
 };
