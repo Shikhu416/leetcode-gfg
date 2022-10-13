@@ -10,46 +10,39 @@ using namespace std;
 
 class Solution {
   public:
-  bool solve(int n,vector<int>adj[],vector<int>&vis,vector<int>&esitesi,vector<int>&check,int i)
-  {
-      vis[i]=1;
-      esitesi[i]=1;
-      for(auto elem:adj[i])
-      {
-          if(!vis[elem])
-            {
-                if(solve(n,adj,vis,esitesi,check,elem))
-                {
-                    check[elem]=0;
-                    return true;
-                }
-            }
-         else if(esitesi[elem])
-         {
-           check[elem]=0;
-           return true;
-         }
-      }
-      check[i]=1;
-      esitesi[i]=0;
-      return false;
-  }
-    vector<int> eventualSafeNodes(int n, vector<int> adj[])
+  
+      vector<int> eventualSafeNodes(int n, vector<int> adj[])
     {
-        vector<int>vis(n,0);
-        vector<int>esitesi(n,0);
-        vector<int>check(n,0);
+        queue<int>q;
+        vector<int>indegree(n,0);
+        vector<int>shikhar[n];
+        for(int  i=0;i<n;i++)
+        {
+            for(auto elem:adj[i])
+        {
+            shikhar[elem].push_back(i);
+            indegree[i]++;
+        }
+        }
         for(int i=0;i<n;i++)
         {
-            if(!vis[i])
-             solve(n,adj,vis,esitesi,check,i);
+            if(indegree[i]==0)
+              q.push(i);
         }
         vector<int>res;
-        for(int i=0;i<n;i++)
+        while(!q.empty())
         {
-            if(check[i]==1)
-             res.push_back(i);
+            int to=q.front();
+            q.pop();
+            res.push_back(to);
+            for(auto elem:shikhar[to])
+            {
+                indegree[elem]--;
+                if(indegree[elem]==0)
+                   q.push(elem);
+            }
         }
+        sort(res.begin(),res.end());
         return res;
     }
 };
