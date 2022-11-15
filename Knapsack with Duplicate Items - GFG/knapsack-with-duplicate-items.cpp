@@ -12,8 +12,9 @@ public:
    int solve(int ind,int w,int val[],int wt[],vector<vector<int>>&dp)
    {
        if(ind==0)
-       {
+       {    if(wt[0]<=w)
            return ((int)(w/wt[0]))*val[0];
+           return 0;
        }
        if(dp[ind][w]!=-1)  return dp[ind][w];
        int nottake=solve(ind-1,w,val,wt,dp);
